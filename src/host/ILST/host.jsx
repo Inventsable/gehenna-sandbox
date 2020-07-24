@@ -1,6 +1,6 @@
 console.log("Host is online");
 function test1() {
-    clampTest();
+    // clampTest();
 }
 function test2() {
     objectEntries();
@@ -18,6 +18,11 @@ function test3() {
 }
 function test4() {
     filterThenIterateLayers();
+}
+function testConsole() {
+    console.log("Hello");
+    console.error("World");
+    console.debug("Testing");
 }
 function clampTest() {
     var min = 1;

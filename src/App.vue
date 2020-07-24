@@ -3,7 +3,7 @@
     <Menus refresh debug />
     <Panel>
       <Wrapper>
-        <Anno>{{version}}</Anno>
+        <Anno>{{ version }}</Anno>
         <Divider />
         <Button label="Number.clamp" evalScript="test1()" @evalScript="msg" />
         <Button label="Object.entries" evalScript="test2()" />
@@ -26,7 +26,7 @@ export default {
   }),
   methods: {
     msg(data) {
-      if (data && data !== "undefined") console.log(data);
+      console.log(data);
     },
     getGehennaVersion() {
       let root = `${spy.path.root}/node_modules/gehenna/package.json`;

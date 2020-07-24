@@ -7,6 +7,12 @@ Gehenna is now an internal dependency of the brutalism library. This is to let u
 The below is functional scripting code in Adobe (in .ts, compiled to .jsx on save):
 
 ```js
+function testConsole() {
+  console.log("Hello log");
+  console.error("Hello error");
+  console.debug("Hello debug");
+}
+
 function clampTest() {
   let min = 1;
   let max = 6;
@@ -77,6 +83,12 @@ function ObjectKeys(testObject) {
 The .jsx equivalent:
 
 ```js
+function testConsole() {
+  console.log("Hello log");
+  console.error("Hello error");
+  console.debug("Hello debug");
+}
+
 function clampTest() {
   var min = 1;
   var max = 6;
