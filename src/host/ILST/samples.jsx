@@ -1,28 +1,10 @@
-console.log("Host is online");
-
-function test1() {
-  clampTest();
-}
-function test2() {
-  objectEntries();
-}
-function test3() {
-  let color = new RGBColor().fromHex("#ff0000");
-  for (const [key, value] of Object.entries(color)) alert(key + " == " + value);
-  // red == 255
-  // green == 0
-  // blue == 0
-  // typename == "RGBColor"
-}
-function test4() {
-  filterThenIterateLayers();
-}
-
 function clampTest() {
+  // Reports 1, 1, 2, 3, 4, 5, 6, 6, 6
   let min = 1;
   let max = 6;
-  for (let value = 0; value <= 8; value++) alert(value.clamp(min, max));
-  // Reports 1, 1, 2, 3, 4, 5, 6, 6, 6
+  for (let value = 0; value <= 8; value++) {
+    alert(value + " ?== " + value.clamp(min, max));
+  }
 }
 
 function objectEntries() {
@@ -33,8 +15,9 @@ function objectEntries() {
     num: 12,
   };
 
-  for (const [key, value] of Object.entries(testObject))
+  for (const [key, value] of Object.entries(testObject)) {
     alert(key + " == " + value);
+  }
   // Reports:
   //    msg == Hello
   //    data == World
@@ -44,7 +27,7 @@ function objectEntries() {
 function interruptedFind() {
   // If this layer does not exist, the alert is never called.
   // The script fails and reports Error 1302: No such element
-  let target = app.activeDocument.layers.getByName("jacob");
+  let target = app.activeDocument.layers.getByName("jonny");
   alert(target);
   //
   // See method below for a better solution via gehenna
@@ -73,12 +56,12 @@ function filterThenIterateLayers() {
 }
 
 // Correct. Does not display Prototype[method]
-function forInObject(testObject) {
+function forInObject() {
   for (var i in testObject) alert(i + " == " + testObject[i]);
 }
 
 // Correct
-function ObjectKeys(testObject) {
+function ObjectKeys() {
   Object.keys(testObject).forEach((key) => {
     alert(key);
   });

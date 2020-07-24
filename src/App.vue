@@ -3,40 +3,37 @@
     <Menus refresh debug />
     <Panel>
       <Wrapper>
-        <Button-Group>
-          <Button block goto="https://github.com/Inventsable/brutalism/issues/new">Report a bug</Button>
-        </Button-Group>
+        <Anno>{{version}}</Anno>
+        <Divider />
+        <Button label="Number.clamp" evalScript="test1()" @evalScript="msg" />
+        <Button label="Object.entries" evalScript="test2()" />
+        <Button label="RGBColor.fromHex" evalScript="test3()" />
+        <Button label="get('layers').filter" evalScript="test4()" />
       </Wrapper>
     </Panel>
   </div>
 </template>
 
 <script>
-import { evalScript } from "brutalism";
+const fs = require("fs");
+import spy from "cep-spy";
 export default {
-  components: {
-    "battleaxe-logo": require("./components/battleaxeLogo.vue").default,
-    "brutalism-title": require("./components/brutalismTitle.vue").default,
+  mounted() {
+    this.version = this.getGehennaVersion();
   },
-  async mounted() {},
+  data: () => ({
+    version: "",
+  }),
   methods: {
-    testClick(item) {
-      console.log("Context menu click:", item);
+    msg(data) {
+      if (data && data !== "undefined") console.log(data);
     },
-    checkMenu(item, index, val) {
-      console.log(item, index, val);
-    },
-    // Can invoke any function as await evalScript(`functionName('${parameterVar}')`) if script is preloaded
-    // Check out the "script-path" prop of <Panel> component above for easy script file load.
-    async runTestScript() {
-      let result = await evalScript(`
-        function test() {
-          alert('Hello world!')
-          return 'result from JSX file'
-        }
-        test();
-      `);
-      console.log(result);
+    getGehennaVersion() {
+      let root = `${spy.path.root}/node_modules/gehenna/package.json`;
+      let data = fs.readFileSync(root, "utf-8");
+      if (data) {
+        return JSON.parse(data)._id;
+      }
     },
   },
 };
