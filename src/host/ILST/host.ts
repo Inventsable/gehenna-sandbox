@@ -1,7 +1,34 @@
 console.log("Host is online");
 
+function getLayerByProperty(property, value) {
+  Array.prototype.find = function(callback) {
+    for (var i = 0; i < this.length; i++)
+      if (callback(this[i], i, this)) return this[i];
+    return null;
+  };
+  function get(type, parent) {
+    if (arguments.length == 1 || !parent) parent = app.activeDocument;
+    var result = [];
+    if (!parent[type]) return [];
+    for (var i = 0; i < parent[type].length; i++) {
+      result.push(parent[type][i]);
+      if (parent[type][i][type])
+        result = [].concat(result, get(type, parent[type][i]));
+    }
+    return result || [];
+  }
+  return get("layers").find(function(layer) {
+    return layer[property] == value;
+  });
+}
+
 function test1() {
-  // clampTest();
+  var test = get("layers").map((layer) => {
+    return getProperty(layer, "color.toHex()");
+  });
+  var test2 = get("color", app.activeDocument.layers[0]);
+  alert(test);
+  alert(test2);
 }
 function test2() {
   objectEntries();
@@ -16,6 +43,17 @@ function test3() {
 }
 function test4() {
   filterThenIterateLayers();
+}
+
+function test5() {
+  return JSON.stringify(
+    get("layers").map((layer) => {
+      return {
+        name: layer.name,
+        color: layer.color.toHex(),
+      };
+    })
+  );
 }
 
 function testConsole() {
